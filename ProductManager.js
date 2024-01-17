@@ -17,4 +17,17 @@ class ProductManager {
             this.products.push(producto)
         }
     }
+    getProducts(producto){
+        //devolver arreglo con productos
+        return []
+    }
+    getProductById(id){
+        const index = this.products.findIndex(prod => prod.code === id.code)
+        if(index != -1){
+            return console.log("Not Found")
+        }else{
+            return console.log("Founded")
+        }
+
+    }
 }
