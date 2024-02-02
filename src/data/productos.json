@@ -1,0 +1,29 @@
+[
+  {
+    "title": "producto prueba 2",
+    "description": "este es un producto prueba 2",
+    "price": 400,
+    "thumbnail": "sin imagen",
+    "code": "efg456",
+    "stock": 25,
+    "id": "fa4724a701ebec25fb71"
+  },
+  {
+    "title": "producto prueba",
+    "description": "este es un producto prueba",
+    "price": 200,
+    "thumbnail": "sin imagen",
+    "code": "abc123",
+    "stock": 10,
+    "id": "6f105edc7f4a6433ad68"
+  },
+  {
+    "title": "producto prueba3",
+    "description": "este es un producto prueba",
+    "price": 600,
+    "thumbnail": "sin imagen",
+    "code": "fgh234",
+    "stock": 10,
+    "id": "6132341a4dd214aed174"
+  }
+]

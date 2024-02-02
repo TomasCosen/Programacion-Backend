@@ -1,4 +1,5 @@
 import crypto from "crypto";
+
 import { promises as fs } from "fs";
 
 export class ProductManager {
@@ -27,16 +28,17 @@ export class ProductManager {
     //existe el producto en el array
     if (existe != -1) {
       productos[existe].stock += producto.stock;
-      console.log(
+      return(
         "Productos agregados al stock existente, stock: ",
         productos[existe].stock
       );
     } else {
       producto.id = crypto.randomBytes(10).toString("hex");
       productos.push(producto);
-      console.log("Producto agregado satisfactoriamente: \n", producto);
+      await fs.writeFile(this.path, JSON.stringify(productos));
+      return("Producto agregado satisfactoriamente: \n", producto);
     }
-    await fs.writeFile(this.path, JSON.stringify(productos));
+    
   }
   async getProducts() {
     //devolver arreglo con productos
@@ -49,9 +51,9 @@ export class ProductManager {
     const existe = productos.find((prod) => prod.code === id);
 
     if (existe) {
-      console.log("Producto Encontrado: ", existe);
+      return existe
     } else {
-      console.log("Not Found");
+      return "Producto no existe"
     }
   }
   async updateProduct(id, campo) {
@@ -64,9 +66,9 @@ export class ProductManager {
         ...campo,
       };
       await fs.writeFile(this.path, JSON.stringify(productos));
-      console.log("Producto actualizado: ", productos[indice]);
+      return("Producto actualizado: ", productos[indice]);
     } else {
-      console.log("Not Found");
+      return("Not Found");
     }
   }
   async deleteProduct(id) {
@@ -76,9 +78,9 @@ export class ProductManager {
     if (indice != -1) {
       productos.splice(indice, 1);
       await fs.writeFile(this.path, JSON.stringify(productos));
-      console.log("Producto Eliminado");
+      return("Producto Eliminado");
     } else {
-      console.log("Not Found");
+      return("Not Found");
     }
   }
 }

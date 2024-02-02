@@ -1,7 +1,32 @@
-import { ProductManager } from "./ProductManager.js";
+import express from "express";
+import { ProductManager } from "./config/ProductManager.js";
 
+const app = express();
+const PORT = 8000;
+const productManager = new ProductManager("./src/data/productos.json");
 
-const manager = new ProductManager("./productos.json");
+app.get('/products', async (req, res) => {
+  const { limit } = req.query;
+  const prods = await productManager.getProducts();
+  console.log(limit)
+  if(parseInt(limit) && limit > 0){
+    const prodsLimit = prods.slice(0, limit)
+    res.send(prodsLimit)
+  }else{
+    res.send("Ingrese un valor ó número válido de Querie")
+  }
+});
+app.get('/products/:pid', async (req, res) => {
+  const idProducto = req.params.pid;
+  const prod = await productManager.getProductById(idProducto);
+  res.send(prod);
+  
+
+});
+
+app.listen(PORT, () => {
+  console.log(`Server on Port ${PORT}`)
+})
 /* //Test 1
 console.log("Test 1:");
 manager.getProducts().then((productos) => {
@@ -10,12 +35,12 @@ manager.getProducts().then((productos) => {
 
 /* //Test 2
 console.log("Test 2:");
-manager.addProduct({
-  title: "producto prueba",
+productManager.addProduct({
+  title: "producto prueba3",
   description: "este es un producto prueba",
-  price: 200,
+  price: 600,
   thumbnail: "sin imagen",
-  code: "abc123",
+  code: "fgh234",
   stock: 10,
 }); */
 
