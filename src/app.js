@@ -8,13 +8,12 @@ const productManager = new ProductManager("./src/data/productos.json");
 app.get('/products', async (req, res) => {
   const { limit } = req.query;
   const prods = await productManager.getProducts();
-  console.log(limit)
-  if(parseInt(limit) && limit > 0){
-    const prodsLimit = prods.slice(0, limit)
-    res.send(prodsLimit)
-  }else{
-    res.send("Ingrese un valor ó número válido de Querie")
+  let limite = parseInt(limit) 
+  if(!limite){
+    limite = prods.length
   }
+  const prodsLimit = prods.slice(0, limit)
+  res.send(prodsLimit)
 });
 app.get('/products/:pid', async (req, res) => {
   const idProducto = req.params.pid;
