@@ -1,1 +1,40 @@
-[{"title":"Arroz","description":"carbohidratos","price":1800,"thumbnail":[],"code":"A1","stock":25,"id":"fa4724a701ebec25fb71"},{"title":"Nueces","description":"Grasas saludables","price":970,"thumbnail":[],"code":"N2","stock":10,"id":"6f105edc7f4a6433ad68"},{"title":"Almendras","description":"calóricas","price":1480,"thumbnail":[],"code":"A3","stock":10,"id":"6132341a4dd214aed174"},{"title":"Castañas","description":"Grasas saludables","price":1700,"thumbnail":[],"code":"C4","stock":20,"category":"frutos secos","id":"ff41f6fefd1e3b250c7e","status":true}]
+[
+  {
+    "title": "Arroz",
+    "description": "carbohidratos",
+    "price": 1800,
+    "thumbnail": [],
+    "code": "A1",
+    "stock": 25,
+    "id": "fa4724a701ebec25fb71"
+  },
+  {
+    "title": "Nueces",
+    "description": "Grasas saludables",
+    "price": 970,
+    "thumbnail": [],
+    "code": "N2",
+    "stock": 10,
+    "id": "6f105edc7f4a6433ad68"
+  },
+  {
+    "title": "Almendras",
+    "description": "calóricas",
+    "price": 1480,
+    "thumbnail": [],
+    "code": "A3",
+    "stock": 10,
+    "id": "6132341a4dd214aed174"
+  },
+  {
+    "title": "Castañas",
+    "description": "Grasas saludables",
+    "price": 1700,
+    "thumbnail": [],
+    "code": "C4",
+    "stock": 20,
+    "category": "frutos secos",
+    "id": "ff41f6fefd1e3b250c7e",
+    "status": true
+  }
+]
