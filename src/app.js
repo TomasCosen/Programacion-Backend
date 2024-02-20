@@ -1,6 +1,7 @@
 import express from "express";
 import cartRouter from "./routes/cartRouter.js";
 import productsRouter from "./routes/productsRouter.js";
+import chatRouter from "./routes/chatRouter.js";
 import upload from "./config/multer.js";
 import { Server } from "socket.io";
 import { engine } from "express-handlebars";
@@ -17,15 +18,28 @@ const server = app.listen(PORT, () => {
 
 //Middlewares
 app.use(express.json());
-app.engine('handlebars', engine());
-app.set('view engine', 'handlebars');
-app.set('views', __dirname + '/views');
+app.engine("handlebars", engine());
+app.set("view engine", "handlebars");
+app.set("views", __dirname + "/views");
 
 const io = new Server(server);
+
+const mensajes = [];
+
+io.on("connection", (socket) => {
+  console.log("Conexión con Socket.io");
+
+  socket.on("mensaje", (info) => {
+    console.log(info);
+    mensajes.push(info);
+    io.emit("mensajeLogs", mensajes);
+  });
+});
 //Routes
-app.use("/static", express.static(__dirname + "/public"));
+app.use("/public", express.static(__dirname + "/public"));
 app.use("/api/products", productsRouter, express.static(__dirname + "/public"));
 app.use("/api/cart", cartRouter);
+app.use("/api/chat", chatRouter, express.static(__dirname + "/public"));
 
 app.post("/upload", upload.single("product"), (req, res) => {
   try {

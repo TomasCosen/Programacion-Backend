@@ -6,6 +6,7 @@
     "thumbnail": [],
     "code": "A1",
     "stock": 25,
+    "img": "https://http2.mlstatic.com/D_NQ_NP_772551-MLA41913793117_052020-O.webp",
     "id": "fa4724a701ebec25fb71"
   },
   {
@@ -15,6 +16,7 @@
     "thumbnail": [],
     "code": "N2",
     "stock": 10,
+    "img": "https://dcdn.mitiendanube.com/stores/003/962/453/products/mariposa-extra-32ebc109933f6ece1b17012826084072-640-0.jpg",
     "id": "6f105edc7f4a6433ad68"
   },
   {
@@ -24,6 +26,7 @@
     "thumbnail": [],
     "code": "A3",
     "stock": 10,
+    "img": "https://dcdn.mitiendanube.com/stores/003/962/453/products/non-pareil-2-8beb61e02d719d09bc17009137359894-1024-1024.png",
     "id": "6132341a4dd214aed174"
   },
   {
@@ -33,6 +36,7 @@
     "thumbnail": [],
     "code": "C4",
     "stock": 20,
+    "img": "https://http2.mlstatic.com/D_NQ_NP_731730-MLA53145646573_012023-O.webp",
     "category": "frutos secos",
     "id": "ff41f6fefd1e3b250c7e",
     "status": true
