@@ -34,4 +34,5 @@ socket.on("mensajeLogs", (info) => {
   info.forEach((mensaje) => {
     messageLogs.innerHTML += `<p>${mensaje.hora}hs. Usuario ${mensaje.usuario} dice: ${mensaje.mensaje}</p>`;
   });
+  messageLogs.scrollTop = messageLogs.scrollHeight;
 });
