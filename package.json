@@ -5,7 +5,8 @@
   "version": "1.0.0",
   "main": "ProductManager.js",
   "scripts": {
-    "devNode": "node --watch src/app.js"
+    "devNode": "node --watch src/app.js",
+    "start": "node src/app.js"
   },
   "keywords": [],
   "author": "",
