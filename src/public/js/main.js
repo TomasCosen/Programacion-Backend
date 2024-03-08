@@ -1,5 +1,4 @@
 const socket = io();
-
 const chatBox = document.getElementById("chatBox");
 const messageLogs = document.getElementById("messageLogs");
 let user;
@@ -7,7 +6,7 @@ let user;
 Swal.fire({
   title: "Ingrese su nombre",
   input: "text",
-  text: "Por favor ingrese su nombre de usuario para continuar",
+  text: "Ingrese su nombre de usuario para continuar",
 
   inputValidator: (valor) => {
     return !valor && "Ingrese un valor válido";
