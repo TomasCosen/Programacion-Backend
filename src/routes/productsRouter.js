@@ -5,18 +5,23 @@ const productsRouter = Router();
 
 productsRouter.get("/", async (req, res) => {
   try {
-    const { limit } = req.query;
-    const prods = await productModel.find().lean();
-    let limite = parseInt(limit);
-    if (!limite) {
-      limite = prods.length;
+    const { limit, page, filter, ord } = req.query;
+    let metFilter;
+    const pag = page !== undefined ? page : 1;
+    const limi = limit !== undefined ? limit : 10;
+    if (filter == "true" || filter == "false") {
+      metFilter = "status";
+    } else {
+      if (filter !== undefined) metFilter = "category";
     }
-    const prodsLimit = prods.slice(0, limite);
-    res.status(200).render("templates/home", {
-      mostrarProductos: true,
-      productos: prodsLimit,
-      css: "product.css",
+    const query = metFilter != undefined ? { [metFilter]: filter } : {};
+    const ordQuery = ord !== undefined ? { price: ord } : {};
+    const prods = await productModel.paginate(query, {
+      limit: limi,
+      page: pag,
+      sort: ordQuery,
     });
+    res.status(200).send(prods);
   } catch (error) {
     res.status(500).render("templates/error", {
       error: error,
