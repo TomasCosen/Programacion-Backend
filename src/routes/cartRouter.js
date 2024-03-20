@@ -3,6 +3,16 @@ import { cartModel } from "../models/cart.js";
 
 const cartRouter = Router();
 
+cartRouter.get("/", async (req, res) => {
+  try {
+    const carts = await cartModel.find({}, "_id");
+    const cartIds = carts.map(cart => cart._id);
+    res.status(200).send(cartIds);
+  } catch (error) {
+    res.status(500).send(`Error interno del servidor al obtener IDs de carritos: ${error}`);
+  }
+});
+
 cartRouter.post("/", async (req, res) => {
   try {
     const mensaje = await cartModel.create({ products: [] });

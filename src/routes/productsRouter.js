@@ -21,7 +21,9 @@ productsRouter.get("/", async (req, res) => {
       page: pag,
       sort: ordQuery,
     });
-    res.status(200).send(prods);
+    res
+      .status(200)
+      .render("templates/home", { mostrarProductos: true, productos: prods });
   } catch (error) {
     res.status(500).render("templates/error", {
       error: error,
