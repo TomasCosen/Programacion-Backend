@@ -5,11 +5,12 @@ const cartRouter = Router();
 
 cartRouter.get("/", async (req, res) => {
   try {
-    const carts = await cartModel.find({}, "_id");
-    const cartIds = carts.map(cart => cart._id);
-    res.status(200).send(cartIds);
+    const carts = await cartModel.find({});
+    res.status(200).render("templates/cart", { cart: carts[0] });
   } catch (error) {
-    res.status(500).send(`Error interno del servidor al obtener IDs de carritos: ${error}`);
+    res
+      .status(500)
+      .send(`Error interno del servidor al obtener IDs de carritos: ${error}`);
   }
 });
 
