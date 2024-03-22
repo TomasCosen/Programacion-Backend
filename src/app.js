@@ -1,12 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 import messageModel from "./models/messages.js";
 import indexRouter from "./routes/indexRouter.js";
 import { Server } from "socket.io";
 import { engine } from "express-handlebars";
 import { __dirname } from "./path.js";
-import session from "express-session";
 
 //declaraciones
 const app = express();
@@ -35,6 +36,11 @@ app.use(
   session({
     secret: "coderSecret",
     resave: true,
+    store: MongoStore.create({
+      mongoUrl:
+        "mongodb+srv://tomascosentino123:vFB3E6yt554v8CUN@cluster0.we7yzrs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+      ttl: 60 * 60,
+    }),
     saveUninitialized: true,
   })
 );

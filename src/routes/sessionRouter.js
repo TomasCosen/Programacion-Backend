@@ -1,12 +1,12 @@
-import { Router } from "express";
+import e, { Router } from "express";
 import { userModel } from "../models/user.js";
 
 const sessionRouter = Router();
 
-sessionRouter.post("/login", async (req, res) => {
+sessionRouter.get("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await userModel.findOne({ email: email });
+    const user = await userModel.findOne({ email: email }).lean();
 
     if (user && password == user.password) {
       req.session.email = email;
@@ -34,15 +34,6 @@ sessionRouter.post("/register", async (req, res) => {
       await userModel.create({ first_name, last_name, email, age, password });
       res.status(200).send("Usuario creado correctamente");
     }
-    const resultado = await userModel.create({
-      first_name,
-      last_name,
-      email,
-      age,
-      password,
-      rol,
-    });
-    res.status(201).send(resultado);
   } catch (e) {
     res.status(500).send("Error al crear usuarios: ", e);
   }
@@ -50,7 +41,11 @@ sessionRouter.post("/register", async (req, res) => {
 
 sessionRouter.get("/logout", (req, res) => {
   req.session.destroy(() => {
-    res.status(200).redirect("/");
+    if (e) {
+      console.log(e);
+    } else {
+      res.status(200).redirect("/");
+    }
   });
 });
 
