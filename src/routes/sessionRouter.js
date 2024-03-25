@@ -1,37 +1,41 @@
-import e, { Router } from "express";
-import { userModel } from "../models/user.js";
+import { Router } from "express";
+import passport from "passport";
 
 const sessionRouter = Router();
 
-sessionRouter.get("/login", async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = await userModel.findOne({ email: email }).lean();
-
-    if (user && password == user.password) {
-      req.session.email = email;
-      if (user.rol == "Admin") {
-        req.session.admin = true;
-        res.status(200).send("Usuario Admin logueado correctamente");
-      } else {
-        res.status(200).send("Usuario Logueado correctamente");
+sessionRouter.get(
+  "/login",
+  passport.authenticate("login"),
+  async (req, res) => {
+    try {
+      if (!req.user) {
+        return res.status(401).send("Usuario o contraseña no validos");
       }
-    } else {
-      res.send(401).send("Usuario o contraseña no válidos");
+      req.session.user = {
+        email: req.user.email,
+        first_name: req.user.first_name,
+      };
+      res.status(200).send("Usuario logueado correctamente");
+    } catch (e) {
+      res.status(500).send("error al loguearse", e);
     }
-  } catch (error) {
-    res.status(500).send("Error al loguear usuario", error);
   }
-});
+);
 
 sessionRouter.post("/register", async (req, res) => {
   try {
-    const { first_name, last_name, email, password, age, rol } = req.body;
+    const { first_name, last_name, email, password, age } = req.body;
     const findUser = await userModel.findOne({ email: email });
     if (findUser) {
       res.status(400).send("Ya existe un usuario con este mail");
     } else {
-      await userModel.create({ first_name, last_name, email, age, password });
+      await userModel.create({
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        age: age,
+        password: createHash(password),
+      });
       res.status(200).send("Usuario creado correctamente");
     }
   } catch (e) {
