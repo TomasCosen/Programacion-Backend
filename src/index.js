@@ -1,8 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import session from "express-session";
-import passport from "passport";
 import MongoStore from "connect-mongo";
+import passport from "passport";
 import cookieParser from "cookie-parser";
 import messageModel from "./models/messages.js";
 import indexRouter from "./routes/indexRouter.js";
@@ -14,8 +14,6 @@ import { __dirname } from "./path.js";
 //declaraciones
 const app = express();
 const PORT = 8080;
-
-
 
 //server
 const server = app.listen(PORT, () => {
@@ -53,10 +51,10 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 
-//passport 
-initializePassport()
-app.use(passport.initialize())
-app.use(passport.session())
+//passport
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/", indexRouter);
 
