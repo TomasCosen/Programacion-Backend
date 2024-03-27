@@ -54,8 +54,17 @@ productsRouter.get("/:pid", async (req, res) => {
 productsRouter.post("/", async (req, res) => {
   try {
     const product = req.body;
-    const mensaje = await productModel.create(product);
-    res.status(201).send(mensaje);
+    const existingProduct = await productModel.findOne({
+      codigo: product.codigo,
+    });
+    if (existingProduct) {
+      existingProduct.stock += product.stock;
+      const updateProduct = await existingProduct.save();
+      res.status(200).send(updateProduct);
+    } else {
+      const newProduct = await productModel.create(product);
+      res.status(201).send(newProduct);
+    }
   } catch (error) {
     res
       .status(500)
