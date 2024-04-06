@@ -4,6 +4,7 @@ import crypto from "crypto";
 import GithubStrategy from "passport-github2";
 import { userModel } from "../../models/user.js";
 import { createHash, validatePassword } from "../../utils/bcrypt.js";
+import { strategyJWT } from "./strategies/jwtStrategy.js";
 
 //Passport trabaje con mas de un middlewares
 
@@ -105,6 +106,7 @@ const initializePassport = () => {
       }
     )
   );
+  passport.use("jwt", strategyJWT);
 };
 
 export default initializePassport;
