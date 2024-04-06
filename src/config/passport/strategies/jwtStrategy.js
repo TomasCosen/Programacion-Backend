@@ -1,9 +1,19 @@
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import { userModel } from "../../../models/user";
 
+const cookieExtractor = (req) => {
+  console.log(req.cookies);
+  //{} no hay cookies != esta cookie no existe
+  //Si existen cookies, asigno mi cookie en especifico
+  const token = req.cookies ? req.cookies.jwtCookie : {};
+  console.log(token);
+  return token;
+};
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: "coderhouse",
+  jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
+  //jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken() esperar el token de JWT desde la peticion
+  //jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]) consultando desde las cookies
+  secretOrKey: "",
 };
 
 export const strategyJWT = new JwtStrategy(
@@ -11,7 +21,7 @@ export const strategyJWT = new JwtStrategy(
   async (payload, done) => {
     try {
       console.log(payload);
-      const user = await userModel.findById(payload._id);
+      const user = await userModel.findById(payload.user._id);
       if (!user) {
         return done(null, false);
       } else {
