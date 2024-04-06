@@ -13,7 +13,13 @@ productsRouter.get("/", async (req, res) => {
   try {
     const { limit, page, filter, ord } = req.query;
     const prods = await getProducts(limit, page, filter, ord);
-    res.status(200).send(prods);
+    const prodsDirect = prods.docs.map((producto) => //mapeo de productos para mostrarlos en handlebars
+      Object.assign({}, producto._doc)
+    );
+    res.status(200).render("templates/home", {
+      mostrarProductos: true,
+      productos: prodsDirect,
+    });
   } catch (error) {
     res.status(500).render("templates/error", {
       error: error,
