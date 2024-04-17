@@ -25,7 +25,7 @@ cartRouter.post("/", async (req, res) => {
 cartRouter.get("/:cid", async (req, res) => {
   try {
     const cartId = req.params.cid;
-    const cart = await cartModel.findById(cartId);
+    const cart = await cartModel.findOne({ _id: cartId });
     res.status(200).send(cart);
   } catch (error) {
     res
@@ -40,6 +40,7 @@ cartRouter.post("/:cid/:pid", async (req, res) => {
     const productId = req.params.pid;
     const { quantity } = req.body;
     const cart = await cartModel.findById(cartId);
+    
     const existe = cart.products.findIndex(
       (product) => product.id_prod == productId
     );
