@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import messageModel from "./models/messages.js";
 import indexRouter from "./routes/indexRouter.js";
 import initializePassport from "./config/passport/passport.js";
+import varenv from './dotenv.js'
 import { Server } from "socket.io";
 import { engine } from "express-handlebars";
 import { __dirname } from "./path.js";
@@ -14,6 +15,7 @@ import { __dirname } from "./path.js";
 //declaraciones
 const app = express();
 const PORT = 8080;
+dotenv.config();
 
 //server
 const server = app.listen(PORT, () => {
@@ -25,9 +27,7 @@ const io = new Server(server);
 //conexion db
 //vFB3E6yt554v8CUN
 mongoose
-  .connect(
-    "mongodb+srv://tomascosentino123:vFB3E6yt554v8CUN@cluster0.we7yzrs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(varenv.mongo_url)
   .then(() => console.log("DB is connected"))
   .catch((e) => console.log(e));
 
@@ -36,17 +36,16 @@ mongoose
 app.use(express.json());
 app.use(
   session({
-    secret: "coderSecret",
+    secret: varenv.session_secret,
     resave: true,
     store: MongoStore.create({
-      mongoUrl:
-        "mongodb+srv://tomascosentino123:vFB3E6yt554v8CUN@cluster0.we7yzrs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+      mongoUrl: varenv.mongo_url,
       ttl: 60 * 60,
     }),
     saveUninitialized: true,
   })
 );
-app.use(cookieParser("claveSecreta"));
+app.use(cookieParser(varenv.cookies_secret));
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
