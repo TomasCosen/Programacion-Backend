@@ -15,7 +15,6 @@ import { __dirname } from "./path.js";
 //declaraciones
 const app = express();
 const PORT = 8080;
-dotenv.config();
 
 //server
 const server = app.listen(PORT, () => {
