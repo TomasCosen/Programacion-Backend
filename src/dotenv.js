@@ -8,6 +8,7 @@ const varenv = {
   session_secret: process.env.COOKIE_SECRET,
   jwt_secret: process.env.JWT_SECRET,
   salt: process.env.SALT,
+  port: process.env.PORT,
 };
 
 export default varenv;
