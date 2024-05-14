@@ -21,6 +21,7 @@ console.log(
     age: 20,
     email: "admin@admin.com",
     rol: "user",
+    cart_id: "65eaad7377b9e0652a86d7b7",
     __v: 0,
   })
 );
