@@ -5,6 +5,7 @@ import GithubStrategy from "passport-github2";
 import { userModel } from "../../models/user.js";
 import { createHash, validatePassword } from "../../utils/bcrypt.js";
 import { strategyJWT } from "./strategies/jwtStrategy.js";
+import varenv from "../../dotenv.js";
 
 //Passport trabaje con mas de un middlewares
 
@@ -76,8 +77,8 @@ const initializePassport = () => {
     "github",
     new GithubStrategy(
       {
-        clientID: "Iv1.d43c15a5d128d591",
-        clientSecret: "fd5a47299b4b09e04fd7afc9a7f3a0bb0e046926",
+        clientID: varenv.clientid,
+        clientSecret: varenv.clientsecret,
         callbackURL: "http://localhost:8080/api/session/githubSession",
       },
       async (accessToken, refreshToken, profile, done) => {
