@@ -90,7 +90,6 @@ const initializePassport = () => {
             done(null, user);
           } else {
             const randomNumber = crypto.randomUUID();
-            console.log(profile._json);
             const userCreated = await userModel.create({
               first_name: profile._json.name,
               last_name: " ",
@@ -98,7 +97,6 @@ const initializePassport = () => {
               age: 18,
               password: createHash(`${profile._json.name}`),
             });
-            console.log(randomNumber);
             return done(null, userCreated);
           }
         } catch (e) {

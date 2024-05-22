@@ -14,7 +14,6 @@ Swal.fire({
   allowOutsideClick: false,
 }).then((resultado) => {
   user = resultado.value;
-  console.log(user);
 });
 
 chatBox.addEventListener("change", (e) => {
