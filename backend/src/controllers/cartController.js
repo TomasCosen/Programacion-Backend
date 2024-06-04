@@ -38,7 +38,7 @@ export const insertProductCart = async (req, res) => {
       );
 
       if (indice != -1) {
-        //Consultar Stock para ver cantidades
+        //Consultar stock para ver cantidades
         cart.products[indice].quantity = quantity; //5 + 5 = 10, asigno 10 a quantity
       } else {
         cart.products.push({ id_prod: productId, quantity: quantity });

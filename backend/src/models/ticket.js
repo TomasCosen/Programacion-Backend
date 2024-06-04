@@ -17,11 +17,9 @@ const ticketSchema = new Schema({
     type: String,
     required: true,
   },
-  products: [
-    {
-      type: Object,
-    },
-  ],
+  products: {
+    type: Object,
+  },
 });
 
 const ticketModel = model("ticket", ticketSchema);

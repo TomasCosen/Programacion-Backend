@@ -5,7 +5,7 @@ import {
   getCart,
   insertProductCart,
   createTicket,
-} from "../controllers/cartController";
+} from "../controllers/cartController.js";
 
 const cartRouter = Router();
 
