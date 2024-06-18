@@ -25,7 +25,7 @@ export const register = async (req, res) => {
     res.status(500).send("Error al registrar usuario");
   }
 };
-export const logout = async (res, res) => {
+export const logout = async (req, res) => {
   req.session.destroy(function (e) {
     if (e) {
       console.log(e);

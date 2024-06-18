@@ -21,7 +21,7 @@ export const getProducts = async (req, res) => {
     res.status(200).send(prods);
   } catch (e) {
     res.status(500).render("templates/error", {
-      error: error,
+      error: e,
     });
   }
 };
