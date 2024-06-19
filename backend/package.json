@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "node --watch src/index.js",
     "start": "node src/app.js",
-    "testmocha": "mocha test/Products.test.js"
+    "testmocha": "mocha test/Products.test.js",
+    "testchai": "mocha test/ProductChai.test.js"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +33,7 @@
     "socket.io": "^4.7.4"
   },
   "devDependencies": {
+    "chai": "^4.4.1",
     "mocha": "^10.4.0"
   }
 }
