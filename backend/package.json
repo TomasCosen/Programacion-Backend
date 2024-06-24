@@ -9,7 +9,9 @@
     "start": "node src/app.js",
     "testmocha": "mocha test/Products.test.js",
     "testchai": "mocha test/ProductChai.test.js",
-    "testproducts": "mocha test/supertestproducts.test.js"
+    "testproducts": "mocha test/supertestproducts.test.js",
+    "testsession": "mocha test/supertestSessions.test.js",
+    "testcart": "mocha test/supertestCart.test.js"
   },
   "keywords": [],
   "author": "",

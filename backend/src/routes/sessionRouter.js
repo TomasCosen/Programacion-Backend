@@ -5,14 +5,18 @@ import {
   register,
   sessionGithub,
   logout,
+  current,
   testJWT,
 } from "../controllers/sessionController.js";
 
 const sessionRouter = Router();
 
-sessionRouter.get("/login", passport.authenticate("login"), login);
+sessionRouter.post("/login", passport.authenticate("login"), login);
 
 sessionRouter.post("/register", passport.authenticate("register"), register);
+
+sessionRouter.get("/current", passport.authenticate("jwt", current));
+
 sessionRouter.get(
   "/github",
   passport.authenticate("github", { scope: ["user:email"] }),
