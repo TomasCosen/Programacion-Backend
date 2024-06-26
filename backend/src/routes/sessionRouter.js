@@ -15,7 +15,7 @@ sessionRouter.post("/login", passport.authenticate("login"), login);
 
 sessionRouter.post("/register", passport.authenticate("register"), register);
 
-sessionRouter.get("/current", passport.authenticate("jwt", current));
+sessionRouter.get("/current", passport.authenticate("jwt"), current);
 
 sessionRouter.get(
   "/github",

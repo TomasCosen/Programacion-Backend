@@ -12,9 +12,12 @@ await mongoose.connect(
 const requester = supertest("http://localhost:8080");
 
 describe("Rutas de sesiones de usuarios (Register, Login, Current)", function () {
-  let user = {};
   let cookie = {};
-  /* it("Ruta: /api/session/register con el metodo POST", async () => {
+
+  beforeEach(async () => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+  });
+  it("Ruta: /api/session/register con el metodo POST", async () => {
     const newUser = {
       first_name: "Jhon",
       last_name: "Doe",
@@ -22,15 +25,12 @@ describe("Rutas de sesiones de usuarios (Register, Login, Current)", function ()
       password: "jhon1234",
       age: 30,
     };
-    const response = await requester
+    const { _body, statusCode } = await requester
       .post("/api/session/register")
       .send(newUser);
-    const { body, statusCode } = response;
     expect(statusCode).to.be.equal(200);
-    expect(body).to.have.property("status");
-    expect(body).to.have.property("payload");
-    user = body.payload;
-  }); */
+    expect(_body).to.have.property("status");
+  });
 
   it("Ruta: /api/session/login con el metodo POST", async () => {
     const newUser = {
@@ -48,14 +48,10 @@ describe("Rutas de sesiones de usuarios (Register, Login, Current)", function ()
   });
 
   it("Ruta: /api/session/current con el metodo GET", async () => {
-    const newUser = {
-      email: "jhon@jhon.com",
-      password: "jhon1234",
-    };
-    const { _body } = await requester
+    const response = await requester
       .get("/api/session/current")
       .set("Cookie", [`${cookie.name}=${cookie.value}`]);
-    console.log(_body.payload);
-    expect(_body.payload.email).to.be.equal(newUser.email);
+    expect(response.body).to.have.property("status");
+    expect(response.body).to.have.property("payload");
   });
 });

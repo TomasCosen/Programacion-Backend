@@ -10,10 +10,10 @@ export const login = async (req, res) => {
     const token = jwt.sign({ user: req.user }, varenv.jwt_secret, {
       expiresIn: "1h",
     });
-    res.cookie(varenv.jwt_secret, token);
-    res
-      .status(200)
-      .send({ status: "success", message: "Usuario logueado correctamente" });
+    res.status(200).cookie(varenv.jwt_secret, token).send({
+      status: "success",
+      message: "Usuario logueado correctamente",
+    });
   } catch (e) {
     res.status(500).send("Error al loguear usuario", e);
   }
@@ -44,6 +44,7 @@ export const logout = async (req, res) => {
 };
 export const current = async (req, res) => {
   try {
+    console.log("Usuario en req.user:", req.user); // Añade este log para verificar
     if (!req.user) {
       return res.status(401).send("No autorizado");
     }

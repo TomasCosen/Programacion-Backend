@@ -3,7 +3,10 @@ import { userModel } from "../../../models/user.js";
 import varenv from "../../../dotenv.js";
 
 const cookieExtractor = (req) => {
-  const token = req.cookies ? req.cookies.jwtCookie : {};
+  let token = null;
+  if (req && req.cookies) {
+    token = req.cookies[varenv.jwt_secret];
+  }
   return token;
 };
 const jwtOptions = {
