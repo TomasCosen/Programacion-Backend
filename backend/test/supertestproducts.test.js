@@ -12,6 +12,23 @@ await mongoose.connect(
 const requester = supertest("http://localhost:8080");
 
 describe("Test CRUD de Productos en la runa api/products", function () {
+  let cookie = {};
+  let productId;
+  before(async () => {
+    //loguear al usuario:
+
+    const loginUser = {
+      email: "jhon@jhon.com",
+      password: "jhon1234",
+    };
+    const result = await requester.post("/api/session/login").send(loginUser);
+    const cookieResult = result.headers["set-cookie"][0];
+    cookie = {
+      name: cookieResult.split("=")[0],
+      value: cookieResult.split("=")[1].split(";")[0],
+    };
+  });
+
   it("Ruta: api/products metodo GET", async () => {
     const { ok } = await requester.get("/api/products");
     expect(ok).to.be.ok;
@@ -26,28 +43,42 @@ describe("Test CRUD de Productos en la runa api/products", function () {
       category: "comida",
       description: "Rico pero no tan saludable",
     };
-    const { statusCode, _body, ok } = await requester
+    const { statusCode, body } = await requester
       .post("/api/products")
+      .set("Cookie", [`${cookie.name}=${cookie.value}`])
       .send(newProduct);
-    //expect(ok).to.be.ok;
+    productId = body._id;
     expect(statusCode).to.be.equal(201);
-    //expect(_body.status).to.be.equal('success')
+    expect(body).to.have.property("_id");
+    expect(body.title).to.equal("Queso muzzarella");
   });
 
   it("Ruta: api/products metodo PUT", async () => {
-    const id = "65ea8714a7f0b8549e4514ea";
     const updateProduct = {
-      price: 2400,
+      price: 10000,
     };
-    const { statusCode } = await requester
-      .put(`/api/products/${id}`)
+    const putResponse = await requester
+      .put(`/api/products/${productId}`)
+      .set("Cookie", [`${cookie.name}=${cookie.value}`])
       .send(updateProduct);
-    expect(statusCode).to.be.equal(200);
+    expect(putResponse.statusCode).to.be.equal(200);
+
+    const getResponse = await requester
+      .get(`/api/products/${productId}`)
+      .set("Cookie", [`${cookie.name}=${cookie.value}`]);
+    expect(getResponse.statusCode).to.be.equal(200);
+    expect(getResponse.body.price).to.equal(10000);
   });
 
   it("Ruta: api/products metodo DELETE", async () => {
-    const id = "65ea8714a7f0b8549e4514ea";
-    const { statusCode } = await requester.delete(`/api/products/${id}`);
-    expect(statusCode).to.be.equal(200);
+    const deleteResponse = await requester
+      .delete(`/api/products/${productId}`)
+      .set("Cookie", [`${cookie.name}=${cookie.value}`]);
+    expect(deleteResponse.statusCode).to.be.equal(200);
+
+    const getResponse = await requester
+      .get(`/api/products/${productId}`)
+      .set("Cookie", [`${cookie.name}=${cookie.value}`]);
+    expect(getResponse.statusCode).to.be.equal(404);
   });
 });

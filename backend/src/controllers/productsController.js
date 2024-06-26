@@ -42,7 +42,7 @@ export const getProduct = async (req, res) => {
 };
 export const createProduct = async (req, res) => {
   try {
-    if (req.user.rol == "Admin") {
+    if (req.user.rol == "admin") {
       const product = req.body;
       const mensaje = await productModel.create(product);
       res.status(201).send(mensaje);
@@ -55,7 +55,7 @@ export const createProduct = async (req, res) => {
 };
 export const updateProduct = async (req, res) => {
   try {
-    if (req.user.rol == "Admin") {
+    if (req.user.rol == "admin") {
       const idProducto = req.params.pid;
       const updateProduct = req.body;
       const prod = await productModel.findByIdAndUpdate(
@@ -74,7 +74,7 @@ export const updateProduct = async (req, res) => {
 };
 export const deleteProduct = async (req, res) => {
   try {
-    if (req.user.rol == "Admin") {
+    if (req.user.rol == "admin") {
       const idProducto = req.params.pid;
       const mensaje = await productModel.findByIdAndDelete(idProducto);
       res.status(200).send(mensaje);

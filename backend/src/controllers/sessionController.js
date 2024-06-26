@@ -44,7 +44,6 @@ export const logout = async (req, res) => {
 };
 export const current = async (req, res) => {
   try {
-    console.log("Usuario en req.user:", req.user); // Añade este log para verificar
     if (!req.user) {
       return res.status(401).send("No autorizado");
     }
