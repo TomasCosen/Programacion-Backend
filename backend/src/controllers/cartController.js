@@ -27,7 +27,7 @@ export const createCart = async (req, res) => {
 
 export const insertProductCart = async (req, res) => {
   try {
-    if (req.user.rol == "User") {
+    if (req.user.rol == "user") {
       const cartId = req.params.cid;
       const productId = req.params.pid;
       const { quantity } = req.body;

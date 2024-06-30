@@ -60,7 +60,7 @@ export const sessionGithub = async (req, res) => {
   res.redirect("/");
 };
 export const testJWT = async (req, res) => {
-  if (req.user.rol == "User") {
+  if (req.user.rol == "user") {
     res.status(403).send("Usuario no autorizado");
   } else {
     res.status(200).send(req.user);
